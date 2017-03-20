@@ -1,0 +1,10 @@
+Dev:
+	1. I need a app that allows the market group(users) to choose their favorit between three random images.
+	2. I need the app to stop reacting after 25 clicks. I also need those 25 clicks to record the users pick and save to display later on.
+	3. I need this app to look good and feel fluid.
+User:  
+	1.I want to be able to click between three items .
+	2. I do not want to have the same item displayed twice.
+	3. I do not want the same picture in the next slide.
+
+
