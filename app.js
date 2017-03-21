@@ -1,6 +1,8 @@
 'use strict';
 var itemsListArray = [];
 var totalClicks = 0;
+var labelArray = [];
+var clickDataArray = [];
 
 function Item(itemName, itemPath){
   this.itemName = itemName;
@@ -73,9 +75,9 @@ var prevImgIndexes  = [];
     img1.removeEventListener('click', clickHandle);
     img2.removeEventListener('click', clickHandle);
     img3.removeEventListener('click', clickHandle);
-    img1.src = [];
-    img2.src = [];
-    img3.src = [];
+    img1.src = "http://i.imgur.com/zugsAYb.gif";
+    img2.src = "http://i.imgur.com/zugsAYb.gif";
+    img3.src = "http://i.imgur.com/zugsAYb.gif";
     productClicks();
   }
 
@@ -83,7 +85,7 @@ var prevImgIndexes  = [];
 
  img1.addEventListener('click', clickHandle);
  img2.addEventListener('click', clickHandle);
- img3.addEventListener('click', clickHandle);	
+ img3.addEventListener('click', clickHandle); 
 
 
  function productClicks() {
@@ -91,9 +93,42 @@ var prevImgIndexes  = [];
  var ul = document.createElement('ul');
  content.appendChild(ul);
  for(var i = 0; i < itemsListArray.length; i++) {
-  var li = document.createElement('li');
-  var dataStr = itemsListArray[i].itemNumberClicked + ' clicks for ' + itemsListArray[i].itemName;
-  li.innerText = dataStr; 
-  ul.appendChild(li);
+    clickDataArray.push(itemsListArray[i].itemNumberClicked);
+  // var li = document.createElement('li');
+  // var dataStr = itemsListArray[i].itemNumberClicked + ' clicks for ' + itemsListArray[i].itemName;
+  // li.innerText = dataStr; 
+  // ul.appendChild(li);
  }
- }
+
+
+for (var i = 0; i < itemsListArray.length; i++){
+  labelArray.push(itemsListArray[i].itemName);
+}
+
+var canvas = document.getElementById('canvas');
+var ctx = canvas.getContext('2d');
+
+
+var data = {
+  labels: labelArray,
+  datasets: [{
+  label: 'Times Clicked',
+  data: clickDataArray,
+  backgroundColor: 'red'
+}]
+};
+
+var myChart = new Chart(ctx, {
+  type: 'bar',
+  data: data,
+  options: {
+    scales: {
+      yAxes: [{
+        ticks: {
+          beginAtZero:true
+        }
+      }]
+    }
+  }
+});
+}
