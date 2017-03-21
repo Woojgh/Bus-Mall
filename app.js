@@ -1,14 +1,12 @@
 'use strict';
-var itemListArray = [];
-var prevShownPicsArray= [];
-var currentlyShownPicsArray = [];
+var itemsListArray = [];
 
 function Item(itemName, itemPath){
   this.itemName = itemName;
   this.itemPath = itemPath;
   this.itemShownTotal = 0;
   this.itemNumberClicked = 0;
-  itemListArray.push(this);
+  itemsListArray.push(this);
 }
 
 //old items will fill oldUserPageArray, newUserPageArray will //compare to oldUserPageArray and have different results. itemListArray will hold list of all items
@@ -33,22 +31,32 @@ var r = new Item ('usb', 'images/usb.gif');
 var s = new Item ('water-can', 'images/water-can.jpg');
 var t = new Item ('wine glass', 'images/wine-glass.jpg');
 
-//Random Item Generator
 function randomItemSelectionFunc(){
-  return Math.floor(Math.random() * (itemListArray.length + 1));
+  return Math.floor(Math.random() * (itemsListArray.length));
 }
+var prevShownPicsArray  = [];
+ 
+ function randomPicGenerate(){
+   var currentlyShownPicsArray  = [];
+   console.log('previous' + prevShownPicsArray);
+   while(currentlyShownPicsArray.length < 3){
+     var randomItemSelectionVar = randomItemSelectionFunc();
+     if(!prevShownPicsArray.includes(randomItemSelectionVar) && !currentlyShownPicsArray.includes(randomItemSelectionVar)){
+       currentlyShownPicsArray.push(randomItemSelectionVar);
+     }
+    }
+   prevShownPicsArray = currentlyShownPicsArray;
+   var imageLeft   = itemsListArray[currentlyShownPicsArray[0]].itemPath;
+   var imageCenter = itemsListArray[currentlyShownPicsArray[1]].itemPath;
+   var imageRight  = itemsListArray[currentlyShownPicsArray[2]].itemPath;
+   console.log('current' + currentlyShownPicsArray);
+   document.getElementById('img1').src = imageLeft;
+   document.getElementById('img2').src = imageCenter;
+   document.getElementById('img3').src = imageRight;
+  }
 
-while(currentlyShownPicsArray.length < 3) {
-  var randomItemSelectionVar = randomItemSelectionFunc();
-  if (!prevShownPicsArray.includes(randomItemSelectionVar) && !currentlyShownPicsArray.includes(randomItemSelectionVar))
-  	currentlyShownPicsArray.push(randomItemSelectionVar);
-}
-prevShownPicsArray = currentlyShownPicsArray;
+ randomPicGenerate();
 
-var imageLeft = itemListArray[currentlyShownPicsArray[0]].itemPath;
-var imageCenter = itemListArray[currentlyShownPicsArray[1]].itemPath;
-var imageRight = itemListArray[currentlyShownPicsArray[2]].itemPath;
-
-document.getElementById("img1").src = imageLeft;
-document.getElementById("img2").src = imageCenter;
-document.getElementById("img3").src = imageRight;
+ img1.addEventListener("click", randomPicGenerate());
+ img2.addEventListener("click", randomPicGenerate());
+ img3.addEventListener("click", randomPicGenerate());	
