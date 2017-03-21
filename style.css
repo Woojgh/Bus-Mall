@@ -1,0 +1,12 @@
+img {
+	display: inline;
+
+}
+header {
+	text-align: center;
+}
+.floatleft img {
+	text-align: center;
+	width: 300px;
+	margin: auto;
+}
