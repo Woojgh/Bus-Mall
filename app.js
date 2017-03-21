@@ -1,5 +1,6 @@
 'use strict';
 var itemsListArray = [];
+var totalClicks = 0;
 
 function Item(itemName, itemPath){
   this.itemName = itemName;
@@ -31,32 +32,68 @@ var r = new Item ('usb', 'images/usb.gif');
 var s = new Item ('water-can', 'images/water-can.jpg');
 var t = new Item ('wine glass', 'images/wine-glass.jpg');
 
-function randomItemSelectionFunc(){
+function randomImgIndex(){
   return Math.floor(Math.random() * (itemsListArray.length));
 }
-var prevShownPicsArray  = [];
+var prevImgIndexes  = [];
  
  function randomPicGenerate(){
-   var currentlyShownPicsArray  = [];
-   console.log('previous' + prevShownPicsArray);
-   while(currentlyShownPicsArray.length < 3){
-     var randomItemSelectionVar = randomItemSelectionFunc();
-     if(!prevShownPicsArray.includes(randomItemSelectionVar) && !currentlyShownPicsArray.includes(randomItemSelectionVar)){
-       currentlyShownPicsArray.push(randomItemSelectionVar);
+   var currentImgIndexes  = [];
+   while(currentImgIndexes.length < 3){
+     var randomImgSelecetVar = randomImgIndex();
+     if(!prevImgIndexes.includes(randomImgSelecetVar) && !currentImgIndexes.includes(randomImgSelecetVar)){
+       currentImgIndexes.push(randomImgSelecetVar);
      }
     }
-   prevShownPicsArray = currentlyShownPicsArray;
-   var imageLeft   = itemsListArray[currentlyShownPicsArray[0]].itemPath;
-   var imageCenter = itemsListArray[currentlyShownPicsArray[1]].itemPath;
-   var imageRight  = itemsListArray[currentlyShownPicsArray[2]].itemPath;
-   console.log('current' + currentlyShownPicsArray);
-   document.getElementById('img1').src = imageLeft;
-   document.getElementById('img2').src = imageCenter;
-   document.getElementById('img3').src = imageRight;
+   var imageLeft = itemsListArray[currentImgIndexes[0]];
+   var imageCenter = itemsListArray[currentImgIndexes[1]];
+   var imageRight = itemsListArray[currentImgIndexes[2]];
+   img1.src = imageLeft.itemPath
+   img2.src = imageCenter.itemPath
+   img3.src = imageRight.itemPath
+   img1.alt = currentImgIndexes[0];
+   img2.alt = currentImgIndexes[1];
+   img3.alt = currentImgIndexes[2];  
+   prevImgIndexes = currentImgIndexes;
+   imageLeft.itemShownTotal++;
+   imageCenter.itemShownTotal++;
+   imageRight.itemShownTotal++;
   }
 
  randomPicGenerate();
 
- img1.addEventListener("click", randomPicGenerate());
- img2.addEventListener("click", randomPicGenerate());
- img3.addEventListener("click", randomPicGenerate());	
+ var clickLimit = 25;
+ function clickHandle(event){
+  randomPicGenerate();
+  totalClicks++;
+  var productIdx = this.alt;
+  itemsListArray[productIdx].itemNumberClicked++;
+  //this.itemNumberClicked++;
+  if(totalClicks === clickLimit) {
+    img1.removeEventListener('click', clickHandle);
+    img2.removeEventListener('click', clickHandle);
+    img3.removeEventListener('click', clickHandle);
+    img1.src = [];
+    img2.src = [];
+    img3.src = [];
+    productClicks();
+  }
+
+ }
+
+ img1.addEventListener('click', clickHandle);
+ img2.addEventListener('click', clickHandle);
+ img3.addEventListener('click', clickHandle);	
+
+
+ function productClicks() {
+ var content = document.getElementById('content');
+ var ul = document.createElement('ul');
+ content.appendChild(ul);
+ for(var i = 0; i < itemsListArray.length; i++) {
+  var li = document.createElement('li');
+  var dataStr = itemsListArray[i].itemNumberClicked + ' clicks for ' + itemsListArray[i].itemName;
+  li.innerText = dataStr; 
+  ul.appendChild(li);
+ }
+ }
