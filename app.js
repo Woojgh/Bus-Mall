@@ -1,40 +1,54 @@
 'use strict';
+var itemListArray = [];
+var prevShownPicsArray= [];
+var currentlyShownPicsArray = [];
 
-function TestItem(itemName, itemPath) {
-	this.itemName = itemName;
-	this.itemPath = itemPath;
-	itemListArray.push(this);
+function Item(itemName, itemPath){
+  this.itemName = itemName;
+  this.itemPath = itemPath;
+  this.itemShownTotal = 0;
+  this.itemNumberClicked = 0;
+  itemListArray.push(this);
 }
 
-itemListArray = [];
-oldListItemsArray = [];
-newListItemsArray = [];
+//old items will fill oldUserPageArray, newUserPageArray will //compare to oldUserPageArray and have different results. itemListArray will hold list of all items
+var a = new Item ('bag', 'images/bag.jpg');
+var b = new Item ('banana', 'images/banana.jpg');
+var c = new Item ('bathroom', 'images/bathroom.jpg');
+var d = new Item ('boots', 'images/boots.jpg');
+var e = new Item ('breakfast', 'images/breakfast.jpg');
+var f = new Item ('bubblegum', 'images/bubblegum.jpg');
+var g = new Item ('chair', 'images/chair.jpg');
+var h = new Item ('chtulu', 'images/cthulhu.jpg');
+var i = new Item ('dog-duck', 'images/dog-duck.jpg');
+var j = new Item ('dragon', 'images/dragon.jpg');
+var k = new Item ('pen', 'images/pen.jpg');
+var l = new Item ('pet-sweep', 'images/pet-sweep.jpg');
+var m = new Item ('scissors', 'images/scissors.jpg');
+var n = new Item ('shark', 'images/shark.jpg');
+var o = new Item ('sweep', 'images/sweep.png');
+var p = new Item ('tauntaun', 'images/tauntaun.jpg');
+var q = new Item ('unicorn', 'images/unicorn.jpg');
+var r = new Item ('usb', 'images/usb.gif');
+var s = new Item ('water-can', 'images/water-can.jpg');
+var t = new Item ('wine glass', 'images/wine-glass.jpg');
 
-function randomItemListFunc() {
-	Math.floor(Math.random() * (itemsListArray.length + 1));
-}
-var randomItemListPic = randomItemListFunc();
-for (var i = 0; i < 3; i++) {
-	newListItemsArray.push(randomItemListPic);
+//Random Item Generator
+function randomItemSelectionFunc(){
+  return Math.floor(Math.random() * (itemListArray.length + 1));
 }
 
-var = new TestItem ('bag', 'images/bag.jpg');
-var = new TestItem ('banana', 'images/banana.jpg');
-var = new TestItem ('bathroom', 'images/bathroom.jpg');
-var = new TestItem ('boots', 'images/boots.jpg', );
-var = new TestItem ('breakfast', 'images/breakfast.jpg');
-var = new TestItem ('bubblegum', 'images/bubblegum.jpg');
-var = new TestItem ('chair', 'images/chair.jpg');
-var = new TestItem ('chtulu', 'images/cthulhu.jpg');
-var = new TestItem ('dog-duck', 'images/dog-duck.jpg');
-var = new TestItem ('dragon', 'images/dragon.jpg');
-var = new TestItem ('pen', 'images/pen.jpg');
-var = new TestItem ('pet-sweep', 'images/pet-sweep.jpg');
-var = new TestItem ('scissors', 'images/scissors.jpg');
-var = new TestItem ('shark', 'images/shark.jpg');
-var = new TestItem ('sweep', 'images/sweep.png');
-var = new TestItem ('tauntaun', 'images/tauntaun.jpg');
-var = new TestItem ('unicorn', 'images/unicorn.jpg');
-var = new TestItem ('usb', 'images/usb.gif');
-var = new TestItem ('water-can', 'images/water-can.jpg');
-var = new TestItem ('wine glass', 'images/wine-glass.jpg');
+while(currentlyShownPicsArray.length < 3) {
+  var randomItemSelectionVar = randomItemSelectionFunc();
+  if (!prevShownPicsArray.includes(randomItemSelectionVar) && !currentlyShownPicsArray.includes(randomItemSelectionVar))
+  	currentlyShownPicsArray.push(randomItemSelectionVar);
+}
+prevShownPicsArray = currentlyShownPicsArray;
+
+var imageLeft = itemListArray[currentlyShownPicsArray[0]].itemPath;
+var imageCenter = itemListArray[currentlyShownPicsArray[1]].itemPath;
+var imageRight = itemListArray[currentlyShownPicsArray[2]].itemPath;
+
+document.getElementById("img1").src = imageLeft;
+document.getElementById("img2").src = imageCenter;
+document.getElementById("img3").src = imageRight;
