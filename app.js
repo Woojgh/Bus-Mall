@@ -114,7 +114,7 @@ var data = {
   datasets: [{
   label: 'Times Clicked',
   data: clickDataArray,
-  backgroundColor: 'red'
+  backgroundColor: 'blue'
 }]
 };
 
