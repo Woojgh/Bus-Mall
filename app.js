@@ -38,29 +38,29 @@ function randomImgIndex(){
   return Math.floor(Math.random() * (itemsListArray.length));
 }
 var prevImgIndexes  = [];
- 
- function randomPicGenerate(){
-   var currentImgIndexes  = [];
-   while(currentImgIndexes.length < 3){
-     var randomImgSelecetVar = randomImgIndex();
-     if(!prevImgIndexes.includes(randomImgSelecetVar) && !currentImgIndexes.includes(randomImgSelecetVar)){
-       currentImgIndexes.push(randomImgSelecetVar);
-     }
+
+function randomPicGenerate(){
+  var currentImgIndexes  = [];
+  while(currentImgIndexes.length < 3){
+    var randomImgSelecetVar = randomImgIndex();
+    if(!prevImgIndexes.includes(randomImgSelecetVar) && !currentImgIndexes.includes(randomImgSelecetVar)){
+      currentImgIndexes.push(randomImgSelecetVar);
     }
-   var imageLeft = itemsListArray[currentImgIndexes[0]];
-   var imageCenter = itemsListArray[currentImgIndexes[1]];
-   var imageRight = itemsListArray[currentImgIndexes[2]];
-   img1.src = imageLeft.itemPath
-   img2.src = imageCenter.itemPath
-   img3.src = imageRight.itemPath
-   img1.alt = currentImgIndexes[0];
-   img2.alt = currentImgIndexes[1];
-   img3.alt = currentImgIndexes[2];  
-   prevImgIndexes = currentImgIndexes;
-   imageLeft.itemShownTotal++;
-   imageCenter.itemShownTotal++;
-   imageRight.itemShownTotal++;
   }
+  var imageLeft = itemsListArray[currentImgIndexes[0]];
+  var imageCenter = itemsListArray[currentImgIndexes[1]];
+  var imageRight = itemsListArray[currentImgIndexes[2]];
+  img1.src = imageLeft.itemPath;
+  img2.src = imageCenter.itemPath;
+  img3.src = imageRight.itemPath;
+  img1.alt = currentImgIndexes[0];
+  img2.alt = currentImgIndexes[1];
+  img3.alt = currentImgIndexes[2];
+  prevImgIndexes = currentImgIndexes;
+  imageLeft.itemShownTotal++;
+  imageCenter.itemShownTotal++;
+  imageRight.itemShownTotal++;
+}
 
  randomPicGenerate();
 
@@ -82,10 +82,19 @@ var prevImgIndexes  = [];
   }
 
  }
+var newArray = [];
+var newClickArray = [];
+  for (var i = 0; i < itemsListArray.itemShownTotal.length; i++) {
+    var shownTotal = itemsListArray.itemShownTotal[i];
+    if (shownTotal){
+      newArray.push(shownTotal.value);
+    }
+  }
+
 
  img1.addEventListener('click', clickHandle);
  img2.addEventListener('click', clickHandle);
- img3.addEventListener('click', clickHandle); 
+ img3.addEventListener('click', clickHandle);
 
 
  function productClicks() {
@@ -96,7 +105,7 @@ var prevImgIndexes  = [];
     clickDataArray.push(itemsListArray[i].itemNumberClicked);
   // var li = document.createElement('li');
   // var dataStr = itemsListArray[i].itemNumberClicked + ' clicks for ' + itemsListArray[i].itemName;
-  // li.innerText = dataStr; 
+  // li.innerText = dataStr;
   // ul.appendChild(li);
  }
 
