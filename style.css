@@ -1,6 +1,54 @@
+body {
+	background-image: url(https://images7.alphacoders.com/489/thumb-1920-489827.png);
+	background-size: cover;
+    position: relative;
+    height: 100%;
+    color: white;
+    font-family: 'Creepster', cursive;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 18px;
+}
+main {
+	min-height: 500px;
+	float:right;	
+}
+h1 {
+	position: absolute;
+	left: 11%;
+	top: 0%;
+	z-index: 2;
+	font-size: 68px;
+}
+p {
+	text-align:center;
+}
 img {
-	width: 300px;
-	float: left;
+	width:150px;
+	height:150px;
+	opacity:.5;
+}
+div.leftPic {
+	background-color: #165629;
+	width: 150px;
+	height: 150px;
+	margin: 20px;
+	border-radius: 10px;
+}
+div.centerPic {
+	background-color: #165629;
+	width: 150px;
+	height: 150px;
+	margin: 20px;
+	border-radius: 10px;
+}
+div.rightPic {
+	background-color: #165629;
+	width: 150px;
+	height: 150px;
+	margin: 20px;
+	border-radius: 10px;
 }
 .clearFix {
 	clear: both;
