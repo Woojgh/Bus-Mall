@@ -3,6 +3,7 @@ var itemsListArray = [];
 var totalClicks = 0;
 var labelArray = [];
 var clickDataArray = [];
+var percentClicked = [];
 
 function Item(itemName, itemPath){
   this.itemName = itemName;
@@ -72,6 +73,7 @@ var prevImgIndexes  = [];
   itemsListArray[productIdx].itemNumberClicked++;
   //this.itemNumberClicked++;
   if(totalClicks === clickLimit) {
+    localStorage.newClick = JSON.stringify(itemsListArray);
     img1.removeEventListener('click', clickHandle);
     img2.removeEventListener('click', clickHandle);
     img3.removeEventListener('click', clickHandle);
@@ -79,9 +81,19 @@ var prevImgIndexes  = [];
     img2.src = "http://i.imgur.com/zugsAYb.gif";
     img3.src = "http://i.imgur.com/zugsAYb.gif";
     productClicks();
+
   }
 
  }
+ var percentTotal = [];
+
+ if(localStorage.newClick){
+  var newClickings = JSON.parse(localStorage.newClick);
+  for(var i = 0; i < newClickings.length; i++){
+    itemsListArray[i].itemNumberClicked = newClickings[i].itemNumberClicked;
+  }
+ }
+//write a function that gives the percent of an item clicked when shown.
 
  img1.addEventListener('click', clickHandle);
  img2.addEventListener('click', clickHandle);
@@ -94,16 +106,10 @@ var prevImgIndexes  = [];
  content.appendChild(ul);
  for(var i = 0; i < itemsListArray.length; i++) {
     clickDataArray.push(itemsListArray[i].itemNumberClicked);
-  // var li = document.createElement('li');
-  // var dataStr = itemsListArray[i].itemNumberClicked + ' clicks for ' + itemsListArray[i].itemName;
-  // li.innerText = dataStr; 
-  // ul.appendChild(li);
+    labelArray.push(itemsListArray[i].itemName);
+    percentTotal.push(itemsListArray[i].itemShownTotal / itemsListArray[i].itemNumberClicked);
+
  }
-
-
-for (var i = 0; i < itemsListArray.length; i++){
-  labelArray.push(itemsListArray[i].itemName);
-}
 
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
@@ -115,6 +121,10 @@ var data = {
   label: 'Times Clicked',
   data: clickDataArray,
   backgroundColor: 'blue'
+},{
+  label: 'Percent Clicked',
+  data: percentTotal,
+  backgroundColor: 'yellow'
 }]
 };
 
