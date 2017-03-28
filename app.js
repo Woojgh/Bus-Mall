@@ -1,10 +1,11 @@
 'use strict';
-var itemsListArray = [];
-var totalClicks = 0;
+
 var labelArray = [];
+var itemsListArray = [];
 var clickDataArray = [];
 var percentClicked = [];
-var clickLimit = 1;
+var totalClicks = 0;
+var clickLimit = 25;
 
 function Item(itemName, itemPath) {
   this.itemName = itemName;
@@ -14,7 +15,6 @@ function Item(itemName, itemPath) {
   itemsListArray.push(this);
 }
 
-//old items will fill oldUserPageArray, newUserPageArray will //compare to oldUserPageArray and have different results. itemListArray will hold list of all items
 var a = new Item('bag', 'images/bag.jpg');
 var b = new Item('banana', 'images/banana.jpg');
 var c = new Item('bathroom', 'images/bathroom.jpg');
@@ -52,9 +52,9 @@ function randomPicGenerate() {
   var imageLeft = itemsListArray[currentImgIndexes[0]];
   var imageCenter = itemsListArray[currentImgIndexes[1]];
   var imageRight = itemsListArray[currentImgIndexes[2]];
-  img1.src = imageLeft.itemPath
-  img2.src = imageCenter.itemPath
-  img3.src = imageRight.itemPath
+  img1.src = imageLeft.itemPath;
+  img2.src = imageCenter.itemPath;
+  img3.src = imageRight.itemPath;
   img1.alt = currentImgIndexes[0];
   img2.alt = currentImgIndexes[1];
   img3.alt = currentImgIndexes[2];
@@ -71,7 +71,6 @@ function clickHandle(event) {
   totalClicks++;
   var productIdx = this.alt;
   itemsListArray[productIdx].itemNumberClicked++;
-  //this.itemNumberClicked++;
   if (totalClicks === clickLimit) {
     localStorage.newClick = JSON.stringify(itemsListArray);
     img1.removeEventListener('click', clickHandle);
@@ -94,7 +93,6 @@ if (localStorage.newClick) {
     itemsListArray[i].itemShownTotal = newClickings[i].itemShownTotal;
   }
 }
-//write a function that gives the percent of an item clicked when shown.
 
 img1.addEventListener('click', clickHandle);
 img2.addEventListener('click', clickHandle);
